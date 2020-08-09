@@ -7,23 +7,23 @@ All of these components are relatives to `maximum_score`.
 
 #### 1. Environment and Installations (Total 2)
 **Complete at least 3 to get 2**
-- [ ] Created virtual environment called "capstone-api"
-- [ ] Installed Packages using conda / pip
-- [ ] Export virtual environment using pip freeze
+- [x] Created virtual environment called "capstone-api"
+- [x] Installed Packages using conda / pip
+- [x] Export virtual environment using pip freeze
 
 #### 2. Exploratory Data Analysis: (Total 8)
 
 **Do at least at least 3 of the following operations to get 3**
 - [ ] Datetime operation 
-- [ ] Categorical operation 
-- [ ] Frequencies analysis 
+- [x] Categorical operation 
+- [x] Frequencies analysis 
 - [ ] Missing Value and Duplicates operation
 
 
 **Do at least 2 of the following operations to get 3**
 - [ ] stack/unstack
 - [ ] melt 
-- [ ] groupby 
+- [x] groupby 
 
 **Do at least 1 of the following operations to get 2**
 - [ ] Take data from joining minimum of 4 table 
@@ -35,11 +35,11 @@ All of these components are relatives to `maximum_score`.
 - [ ] Deploy to Heroku using Heroku Git 
 
 **Complete at least 2 to get 2 :**
-- [ ] Create 2 or more static endpoints
-- [ ] Create 1 or more dynamic endpoint
+- [x] Create 2 or more static endpoints
+- [x] Create 1 or more dynamic endpoint
 
 #### 4. Documentation (Total 3)
 **Complete at least 2 to get 3 points :**
 - [ ] Create documentation as markdown in Github 
-- [ ] Create documentation page in `<your_api_url>/docs` (may require a little HTML knowledge)
+- [x] Create documentation page in `<your_api_url>/docs` (may require a little HTML knowledge)
 ___

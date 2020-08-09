@@ -1,84 +1,118 @@
-from flask import Flask, request 
 import pandas as pd
 from flask import Flask, render_template, request
 app = Flask(__name__)
+book = pd.read_csv('data/books_c.csv')
 app.debug = True
 
-#hello world
-@app.route('/home')
-def home():
-    return 'Hello World'
+#documentation
+@app.route('/docs')
+def doc():
+    page_html ='''
+    <html>
+        <body>
+    <h1>Dokumentasi API dengan data book_c.csv</h1>
+    Created by Aditya Wicaksono - August 2020
+    <h2>Introduction</h2> 
+    API (Application Programming Interface) ini digunakan untuk mengambil data dari books_c.csv melewati webpage yang telah ditentukan routenya.
+    <br><br>
+    <h2>Method list:</h2>
+    <ol type="1">
+        <li>
+            <h3>STATIC ENDPOINT 1: Method `top10`</h3> 
+            Menampilkan top 10 Author berdasarkan jumlah rating per author<br>
+        </li>
+        <li>
+           <h3>STATIC ENDPOINT 2: Method `top10_score`</h3> 
+            Menampilkan top 10 Author dan rata-rata skor rating<br>
+            </ul>
+        </li>
+        <li>
 
-#test query localhost:5000/query?name=Budi Setiawan&age=32
-@app.route('/query')
-def query_example():
-    key1 = 'name'
-    key2 = 'age'
-    name = request.args[key1] # Jika key tidak disertakan dalam URL, maka akan terjadi server error
-    age = request.args.get(key2) # Jika key tidak disertakan dalam URL, maka age akan bernilai None
-    return(f"Hello, {name}, yoau are {age} years old")
+           <h3>DYNAMIC ENDPOINT 1: Method `/book_rank/<value>`</h3> 
+            Menampilkan buku berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
+            <br><br>
+        </li>
+        <li>
 
-#test get post
-@app.route('/coba', methods=['GET', 'POST'])
-def terserah():
-    if request.method == 'GET':
-        return "Ini adalah Hasil method GET"
-    else:
-        return "Ini adalah hasil method POST"
+           <h3>DYNAMIC ENDPOINT 2: Method `/author_rank/<value>`</h3> 
+            Menampilkan author berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
+            <br><br>
+        </li>
+            <strong>Usage case</strong>
+            <ul>
+                <li>`localhost:5000/top10`</li>
+                <li>`localhost:5000/top10_score`</li>
+                <li>`localhost:5000/book_rank/1`</li>
+                <li>`localhost:5000/book_rank/8`</li>
+                <li>`localhost:5000/author_rank/1`</li>
+                <li>`localhost:5000/author_rank/100`</li>
+            </ul>
 
-#form
-@app.route('/form', methods=['GET', 'POST']) #allow both GET and POST requests
-def form():
-    if request.method == 'POST':  # Hanya akan tampil setelah melakukan POST (submit) form
-        key1 = 'name'
-        key2 = 'age'
-        name = request.form.get(key1)
-        age = request.form[key2]
+        </li>
 
-        return (f'''<h1>Your Name  is: {name}</h1>
-                   <h1>Your Age is: {age}</h1>
-                ''')
+    </ol>
+    <br><br><br><br>
+        </body>
+    </html>
+    '''
 
-
-    return '''<form method="POST">
-                  Name: <input type="text" name="name"><br>
-                  Age: <input type="text" name="age"><br>
-                  <input type="submit" value="Submit"><br>
-              </form>'''
-#json
-@app.route('/json', methods=['POST'])
-def json_exmp():
-
-    req = request.get_json(force=True) # melakukan parsing data json, menyimpannya sebagai dictionary
-
-    name = req['name']
-    age = req['age']
-    address = req['address']
-
-    return (f'''Hello {name}, your age is {age}, and your address in {address}
-            ''')
-
-# mendapatkan keseluruhan data dari <data_name>
-@app.route('/data/get/<data_name>', methods=['GET'])
-def get_data(data_name):
-    data = pd.read_csv('data/' + str(data_name))
-    return (data.to_json())
+    return page_html
 
 
-# mendapatkan data dengan filter nilai <value> pada kolom <column>
-@app.route('/data/get/equal/<data_name>/<column>/<value>', methods=['GET'])
-def get_data_equal(data_name, column, value):
-    data = pd.read_csv('data/' + str(data_name)) #membaca data <data name>
-    mask = data[column] == value #filtering
-    data = data[mask]
-    return (data.to_json())
+#Static Endpoint 1: top10 Author
+@app.route('/top10')
+def top10():
+    popular_author = book.groupby(['authors'])['ratings_count'].sum().reset_index().sort_values(by=['ratings_count'], ascending=False)
+    pop_author = popular_author.drop(columns='ratings_count')
+    top10 = pop_author.head(10)
+    return (top10.to_json())
 
+#Static Endpoint 2: top10 author score
+@app.route('/top10_score')
+def top10_score():
+    popular_author = book.groupby(['authors'])['ratings_count'].sum().reset_index().sort_values(by=['ratings_count'], ascending=False)
+    avg_author = book.groupby(['authors'])['average_rating'].mean().reset_index()
+    top10_score = popular_author.merge(avg_author, on='authors', how='left')
+    top10_mean = top10_score.head(10)
+    return (top10_mean.to_json())
 
+#Dynamic Endpoint: Book Rank by Rating
+@app.route('/book_rank/<value>', methods=['GET'])
+def book_ranked(value):
+    popular_book = book.groupby(['title', 'authors', 'ratings_count'])['average_rating'].sum().reset_index().sort_values(by=['ratings_count', 'average_rating'], ascending=False)
+    p_book = popular_book.reset_index().reset_index()
+    p_book['rank'] = p_book['level_0'] + 1  # create new column 'rank'
 
-@app.route('/test', methods=['GET'])
-def dropdown():
-    colours = ['Red', 'Blue', 'Black', 'Orange']
-    return render_template('test.html', colours=colours)
+    # move 'rank' column to front
+    col_name = 'rank'
+    first_col = p_book.pop(col_name)
+    p_book.insert(0, col_name, first_col)
+
+    book_ranked = p_book.drop(columns=['level_0', 'index'])  # drop column old index
+    book_ranked['rank'] = book_ranked['rank'].astype(str) #change int to string
+    mask = book_ranked['rank'] == value
+    book_ranked = book_ranked[mask]
+    return (book_ranked.to_json())
+
+#Dynamic Endpoint: Author Rank by Rating
+@app.route('/author_rank/<value>', methods=['GET'])
+def author_ranked(value):
+    popular_author = book.groupby(['authors'])['ratings_count'].sum().reset_index().sort_values(by=['ratings_count'], ascending=False)
+    avg_author = book.groupby(['authors'])['average_rating'].mean().reset_index()
+    top10_score = popular_author.merge(avg_author, on='authors', how='left')
+    p_author = top10_score.reset_index().reset_index()
+    p_author['rank'] = p_author['level_0'] + 1  # create new column 'rank'
+
+    # move 'rank' column to front
+    col_name = 'rank'
+    first_col = p_author.pop(col_name)
+    p_author.insert(0, col_name, first_col)
+
+    author_ranked = p_author.drop(columns=['level_0', 'index'])  # drop column old index
+    author_ranked['rank'] = author_ranked['rank'].astype(str) #change int to string
+    mask = author_ranked['rank'] == value
+    author_ranked = author_ranked[mask]
+    return (author_ranked.to_json())
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000) 
