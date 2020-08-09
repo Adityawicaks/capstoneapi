@@ -1,43 +1,28 @@
-# p4da-capstone-api
-This is Algoritma's Python for Data Analysis Capstone Project. This project aims to create a simple API to fetch data from Heroku Server. 
+# Dokumentasi API dengan data book_c.csv</h1>
+    Created by Aditya Wicaksono - August 2020
+## Introduction 
+    API (Application Programming Interface) ini digunakan untuk mengambil data dari books_c.csv melewati webpage yang telah ditentukan routenya.
 
-As a Data Scientist, we demand data to be accessible. And as a data owner, we are careful with our data. As the answer, data owner create an API for anyone who are granted access to the data to collect them. In this capstone project, we will create Flask Application as an API and deploy it to Heroku Web Hosting. 
+## Method list
 
-We provide a brief guideline to create the API and how to Deploy in `Capstone Guideline.ipynb` using Bahasa Indonesia. 
+### STATIC ENDPOINT 1: Method `top10`
+            Menampilkan top 10 Author berdasarkan jumlah rating per author<br>
 
-You can check the rubrics on rubrics folder
-___
-## Dependencies : 
-- Pandas    (pip install pandas)
-- Flask     (pip install flask)
-- Gunicorn  (pip install gunicorn)
-___
-## Goal 
-- Create Flask API App
-- Deploy to Heroku
-- Build API Documentation of how your API works
-- Implements the data analysis and wrangling behind the works
+### STATIC ENDPOINT 2: Method `top10_score`
+            Menampilkan top 10 Author dan rata-rata skor rating<br>
 
-___
-We have deployed a simple example on : https://algo-capstone.herokuapp.com
-Here's the list of its endpoints: 
-```
-1. / , method = GET
-Base Endpoint, returning welcoming string value. 
 
-2. /data/get/<data_name> , method = GET
-Return full data <data_name> in JSON format. Currently available data are:
-    - books_c.csv
-    - pulsar_stars.csv 
-    
-3. /data/get/equal/<data_name>/<column>/<value> , method = GET
-Return all <data_nam> where the value of column <column> is equal to <value>
-```
+### DYNAMIC ENDPOINT 1: Method `/book_rank/<value>'
+            Menampilkan buku berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
 
-If you want to try it, you can access (copy-paste it) : 
-- https://algo-capstone.herokuapp.com
-- https://algo-capstone.herokuapp.com/data/get/books_c.csv
-- https://algo-capstone.herokuapp.com/data/get/pulsar_stars.csv
-- https://algo-capstone.herokuapp.com/data/get/equal/books_c.csv/isbn/0439785960
-- https://algo-capstone.herokuapp.com/data/get/equal/books_c.csv/authors/J.K. Rowling
-- and so on, just follow the endpoint's pattern
+### DYNAMIC ENDPOINT 2: Method `/author_rank/<value>'
+            Menampilkan author berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
+
+### Usage case
+
+                `localhost:5000/top10`
+                'localhost:5000/top10_score`
+                `localhost:5000/book_rank/1`
+                `localhost:5000/book_rank/8`
+                `localhost:5000/author_rank/1`
+                `localhost:5000/author_rank/100`
