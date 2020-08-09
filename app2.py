@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import Flask, request
 app = Flask(__name__)
 book = pd.read_csv('data/books_c.csv')
 app.debug = True
