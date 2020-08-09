@@ -27,7 +27,7 @@
                 `localhost:5000/author_rank/1`
                 `localhost:5000/author_rank/100`
 ### Usage case HEROKU
-https://capstone-api1.herokuapp.com/docs ->documentation
+https://capstone-api1.herokuapp.com/docs ->documentation <br>
 https://capstone-api1.herokuapp.com/top10
 https://capstone-api1.herokuapp.com/top10_score
 https://capstone-api1.herokuapp.com/book_rank/5
