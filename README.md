@@ -10,7 +10,9 @@
 
 ### STATIC ENDPOINT 2: Endpoint `top10_score`
             Menampilkan top 10 Author dan rata-rata skor rating<br>
-
+            
+### STATIC ENDPOINT 3: Endpoint `BrazilonFriday`
+            Menampilkan nilai jumlah invoice di Brazil di hari Jumat<br>
 
 ### DYNAMIC ENDPOINT 1: Endpoint `/book_rank/<value>`
             Menampilkan buku berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
