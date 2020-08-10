@@ -14,7 +14,7 @@ All of these components are relatives to `maximum_score`.
 #### 2. Exploratory Data Analysis: (Total 8)
 
 **Do at least at least 3 of the following operations to get 3**
-- [ ] Datetime operation 
+- [x] Datetime operation 
 - [x] Categorical operation 
 - [x] Frequencies analysis 
 - [ ] Missing Value and Duplicates operation
@@ -22,7 +22,7 @@ All of these components are relatives to `maximum_score`.
 
 **Do at least 2 of the following operations to get 3**
 - [ ] stack/unstack
-- [ ] melt 
+- [x] melt 
 - [x] groupby 
 
 **Do at least 1 of the following operations to get 2**
