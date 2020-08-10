@@ -1,4 +1,4 @@
-# Dokumentasi API dengan data book_c.csv</h1>
+# Dokumentasi API dengan data book_c.csv & Chinook db</h1>
     Created by Aditya Wicaksono - August 2020
 ## Introduction 
     API (Application Programming Interface) ini digunakan untuk mengambil data dari books_c.csv melewati webpage yang telah ditentukan routenya.
@@ -33,5 +33,5 @@ https://capstone-api1.herokuapp.com/docs ->documentation <br>
 https://capstone-api1.herokuapp.com/top10 <br>
 https://capstone-api1.herokuapp.com/top10_score <br>
 https://capstone-api1.herokuapp.com/book_rank/5 <br>
-https://capstone-api1.herokuapp.com/author_rank/20
+https://capstone-api1.herokuapp.com/author_rank/20 <br>
 https://capstone-api1.herokuapp.com/BrazilonFriday
