@@ -31,6 +31,13 @@ def doc():
             </ul>
         </li>
         <li>
+        <li>
+           <h3>STATIC ENDPOINT 3: Method `BrazilonFriday`</h3> 
+            Menampilkan nilai jumlah invoice di Brazil di hari Jumat<br>
+            </ul>
+        </li>
+        <li>
+
 
            <h3>DYNAMIC ENDPOINT 1: Method `/book_rank/<value>`</h3> 
             Menampilkan buku berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
@@ -42,6 +49,7 @@ def doc():
             Menampilkan author berdasarkan ranking, nomor ranking tergantung masukan dari user<br>
             <br><br>
         </li>
+        
             <strong>Usage case</strong>
             <ul>
                 <li>`localhost:5000/top10`</li>
