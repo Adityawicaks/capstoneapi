@@ -1,4 +1,5 @@
 # Dokumentasi API dengan data book_c.csv & Chinook db</h1>
+    This is a project for Algoritma Capstone Project Python for Data Analyst
     Created by Aditya Wicaksono - August 2020
 ## Introduction 
     API (Application Programming Interface) ini digunakan untuk mengambil data dari books_c.csv melewati webpage yang telah ditentukan routenya.
