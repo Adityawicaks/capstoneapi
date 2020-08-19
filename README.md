@@ -1,4 +1,4 @@
-# Dokumentasi API dengan data book_c.csv & Chinook db</h1>
+# API dengan data book_c.csv & Chinook db</h1>
     This is a project for Algoritma Capstone Project Python for Data Analyst
     Created by Aditya Wicaksono - August 2020
 ## Introduction 
